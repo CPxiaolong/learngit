@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title></title>
+		<style type="text/css">
+			#mydiv1,#mydiv2{
+				width:200px;
+				height: 200px;
+				border: solid 1px; 
+				float: left;
+				margin-right: 30px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="mydiv1">
+			<img src="gg.png" draggable="true" id="myImg">
+		</div>
+		<div id="mydiv2"></div>
+		<script type="text/javascript">
+			var drag1 = document.getElementById("myImg");
+			drag1.ondragstart = function (event) {
+				event.dataTransfer.setData("Text",event.target.id);
+			}
+			var div2 = document.getElementById("mydiv2");
+			div2.ondrop = function(event){
+				event.preventDefault();
+				var data = event.dataTransfer.getData("Text");
+				event.target.appendChild(document.getElementById(data));
+			}
+			div2.ondragover = function(event){
+				event.preventDefault();
+			}
+		</script>
+	</body>
+</html>
