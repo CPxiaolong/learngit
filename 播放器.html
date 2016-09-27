@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			#myImg{
+				position: absolute;
+			    top: 187px;
+			    left: 294px;
+			    display: none;
+			}
+			#tm{
+				width: 80px;
+				height:30px;
+				border: 1px solid;
+			}
+			#jinDu{
+				width: 400px;
+				height: 2px;
+				position: absolute;
+				background: #9f9f9f;
+			}
+			#mjin{
+				width: 0;
+				height: 2px;
+				background: #4285f4;
+			}
+		</style>
+	</head>
+	<body>
+		<video controls="controls"  width="700px" height="500px" id="vid" >
+		<source src="tong.mkv">
+		不支持video 
+		</video>
+		<button id="btn1">播放/暂停</button>
+		<button id="btn2">静音</button>
+		<button id="btn3">快进</button>
+		<button id="btn4">控制条</button>
+		<button id="btn5">海报</button>
+		<img src="gg.png" id="myImg">
+		<div id="tm"></div>
+		<div id="jinDu">
+			<div id="mjin"></div>
+		</div>
+
+		<script type="text/javascript" defer>
+			var myVideo = document.getElementById("vid");
+			var btn1 = document.getElementById("btn1");
+			var btn2 = document.getElementById("btn2");
+			var btn3 = document.getElementById("btn3");
+			var btn4 = document.getElementById("btn4");
+			var btn5 = document.getElementById("btn5");
+			var myImg = document.getElementById("myImg");
+			var tm = document.getElementById("tm");
+			var a = 5;
+			btn1.onclick = function(){
+				if (myVideo.paused){
+					myVideo.play();
+				}else {
+					myVideo.pause();
+				}
+			}
+			btn2.onclick = function(){
+				if(myVideo.muted){
+					myVideo.muted = false;
+				}else {
+					myVideo.muted = true;
+				}	
+			}
+			btn3.onclick = function(){
+				myVideo.currentTime = a;
+				a = a + 5;
+			}
+			myVideo.onplay = function () {
+				myImg.style.display = "none";
+			}
+			myVideo.onpause = function(){
+				myImg.style.display = "block";
+			}
+			myImg.onclick = function(){
+				myImg.style.display = "none";
+			}
+			/*myVideo.onseeking = function () {
+				console.log('1');
+			}
+			myVideo.ontimeupdate = function () {
+				console.log(a+=1);
+			}
+			myVideo.addEventListener('loadeddata',function () {
+				console.log('111')
+			} )*/
+			btn4.onclick = function(){
+				if(myVideo.controls){
+					myVideo.controls = false;
+				}else {
+					myVideo.controls = true;
+				}
+			}
+
+			//显示时时时间
+			//给myVideo即视频添加时间改变触发事件；
+			myVideo.ontimeupdate = function(){
+				var myTime = parseInt(myVideo.currentTime);
+				var miao = parseInt(myVideo.currentTime)%60;
+				var fen  = parseInt(myTime/60)%60;
+				var allTime = myVideo.duration;
+				var allmiao = parseInt(myVideo.duration)%60;
+				var allfen  = parseInt(myVideo.duration/60)%60;
+				var allshi = parseInt(myVideo.duration/3600);
+				if(allmiao<10){
+					allmiao = "0"+allmiao;
+				}
+				if(allfen<10){
+					allfen = "0"+allfen;
+				}
+				if(miao<10){
+					miao = "0"+miao;
+				}
+				if(fen<10){
+					fen = "0"+fen;
+				}
+			 	var shi = parseInt(myTime/3600);
+			 	tm.innerHTML = shi+":"+fen+":"+miao+"/"+allshi+":"+allfen+":"+allmiao;
+				//进度条
+				var mjin = document.getElementById("mjin");
+				var kuan = (myTime/allTime)*400;
+				mjin.style.width=kuan+"px";	
+			}		
+		</script>
+	</body>
+</html>
