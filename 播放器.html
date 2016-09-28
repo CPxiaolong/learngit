@@ -26,6 +26,32 @@
 				height: 2px;
 				background: #4285f4;
 			}
+			#myPlay{
+			    background: url(kongZhi.jpg);
+			    width: 27px;
+			    height: 27px;
+			    background-repeat: no-repeat;
+			    background-position: -120px -160px;
+			}
+			.voice{
+				background: url(voice.jpg);
+			    width: 27px;
+			    height: 27px;
+			    background-repeat: no-repeat;
+			    background-size: 56px;
+			    background-position: -13px -7px;
+			}
+			#voice{
+				width: 70px;
+				height: 2px;
+				position: absolute;
+				background: #9f9f9f;
+			}
+			#myVoice{
+				width: 40px;
+				height: 2px;
+				background: #4285f4;
+			}
 		</style>
 	</head>
 	<body>
@@ -37,13 +63,16 @@
 		<button id="btn2">静音</button>
 		<button id="btn3">快进</button>
 		<button id="btn4">控制条</button>
-		<button id="btn5">海报</button>
 		<img src="gg.png" id="myImg">
 		<div id="tm"></div>
 		<div id="jinDu">
 			<div id="mjin"></div>
 		</div>
-
+		<div id="myPlay"></div>	
+		<div class="voice"></div>
+		<div id="voice">
+			<div id="myVoice"></div>
+		</div>	
 		<script type="text/javascript" defer>
 			var myVideo = document.getElementById("vid");
 			var btn1 = document.getElementById("btn1");
@@ -52,13 +81,14 @@
 			var btn4 = document.getElementById("btn4");
 			var btn5 = document.getElementById("btn5");
 			var myImg = document.getElementById("myImg");
+			var	myPlay = document.getElementById("myPlay");
 			var tm = document.getElementById("tm");
 			var a = 5;
-			btn1.onclick = function(){
+			myPlay.onclick = function(){
 				if (myVideo.paused){
-					myVideo.play();
+					myVideo.play();		
 				}else {
-					myVideo.pause();
+					myVideo.pause();	
 				}
 			}
 			btn2.onclick = function(){
@@ -74,9 +104,11 @@
 			}
 			myVideo.onplay = function () {
 				myImg.style.display = "none";
+				myPlay.style.backgroundPosition = "-75px -160px";
 			}
 			myVideo.onpause = function(){
 				myImg.style.display = "block";
+				myPlay.style.backgroundPosition = "-120px -160px";
 			}
 			myImg.onclick = function(){
 				myImg.style.display = "none";
@@ -126,7 +158,10 @@
 				var mjin = document.getElementById("mjin");
 				var kuan = (myTime/allTime)*400;
 				mjin.style.width=kuan+"px";	
-			}		
+			}
+			//控制声音
+			var myVoice = document.getElementById("myVoice");
+			var video_voice = myVideo.volume;
 		</script>
 	</body>
 </html>
