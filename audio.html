@@ -1,13 +1,24 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<meta charset="utf-8">
 		<title></title>
 	</head>
 	<body>
-		<p>audio</p>
-		<audio controls>
+		<audio id="aud" controls>
 			<source src="music.mp3" >
 		</audio>
-
+		<button id="btn1">播放暂停</button>
 	</body>
+	<script type="text/javascript">
+		var aud = document.getElementById("aud");
+		var btn1 = document.getElementById("btn1");
+		btn1.onclick = function (){
+			if (aud.paused){
+					aud.play();
+				}else {
+					aud.pause();
+				}
+		}
+	</script>
 </html>
