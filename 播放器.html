@@ -17,13 +17,13 @@
 			}
 			#jinDu{
 				width: 400px;
-				height: 2px;
+				height: 7px;
 				position: absolute;
 				background: #9f9f9f;
 			}
 			#mjin{
 				width: 0;
-				height: 2px;
+				height: 7px;
 				background: #4285f4;
 			}
 			#myPlay{
@@ -33,7 +33,7 @@
 			    background-repeat: no-repeat;
 			    background-position: -120px -160px;
 			}
-			.voice{
+			.voicea{
 				background: url(voice.jpg);
 			    width: 27px;
 			    height: 27px;
@@ -43,13 +43,13 @@
 			}
 			#voice{
 				width: 70px;
-				height: 2px;
+				height:4px;
 				position: absolute;
 				background: #9f9f9f;
 			}
 			#myVoice{
-				width: 40px;
-				height: 2px;
+				width: 0;
+				height: 4px;
 				background: #4285f4;
 			}
 		</style>
@@ -69,7 +69,7 @@
 			<div id="mjin"></div>
 		</div>
 		<div id="myPlay"></div>	
-		<div class="voice"></div>
+		<div class="voicea"></div>
 		<div id="voice">
 			<div id="myVoice"></div>
 		</div>	
@@ -83,6 +83,14 @@
 			var myImg = document.getElementById("myImg");
 			var	myPlay = document.getElementById("myPlay");
 			var tm = document.getElementById("tm");
+			var mjin = document.getElementById("mjin");
+			var jinDu = document.getElementById("jinDu");
+			//声音
+			var myVoice = document.getElementById("myVoice");
+			var voicea = document.getElementById("voice");
+			var video_voice = myVideo.volume;
+			var allTime;
+			var myTime;
 			var a = 5;
 			myPlay.onclick = function(){
 				if (myVideo.paused){
@@ -132,11 +140,11 @@
 
 			//显示时时时间
 			//给myVideo即视频添加时间改变触发事件；
-			myVideo.ontimeupdate = function(){
-				var myTime = parseInt(myVideo.currentTime);
+			window.setInterval(function(){
+				 	myTime = parseInt(myVideo.currentTime);
 				var miao = parseInt(myVideo.currentTime)%60;
 				var fen  = parseInt(myTime/60)%60;
-				var allTime = myVideo.duration;
+					allTime = myVideo.duration;
 				var allmiao = parseInt(myVideo.duration)%60;
 				var allfen  = parseInt(myVideo.duration/60)%60;
 				var allshi = parseInt(myVideo.duration/3600);
@@ -155,13 +163,36 @@
 			 	var shi = parseInt(myTime/3600);
 			 	tm.innerHTML = shi+":"+fen+":"+miao+"/"+allshi+":"+allfen+":"+allmiao;
 				//进度条
-				var mjin = document.getElementById("mjin");
 				var kuan = (myTime/allTime)*400;
-				mjin.style.width=kuan+"px";	
+				mjin.style.width=kuan+"px";
+			},20)
+			//移动进度条
+
+			jinDu.onclick = function(event){
+				myVideo.currentTime = parseInt(event.offsetX)/400*myVideo.duration;
+				
+			}
+			jinDu.onmousedown = function(){
+				jinDu.onmousemove = function(){ myVideo.currentTime = parseInt(event.offsetX)/400*myVideo.duration;}
+				document.onmouseup = function(){
+				jinDu.onmousemove = null;
+				}
 			}
 			//控制声音
-			var myVoice = document.getElementById("myVoice");
-			var video_voice = myVideo.volume;
+			
+			voice.onclick = function(event){
+				myVideo.volume = event.offsetX/70;
+				myVoice.style.width =myVideo.volume*70+"px";
+			}
+			voice.onmousedown = function(){
+				voice.onmousemove = function(){ 
+					myVideo.volume = event.offsetX/70;
+					myVoice.style.width =myVideo.volume*70+"px";
+				}
+				document.onmouseup = function(){
+				voice.onmousemove = null;
+				}
+			}
 		</script>
 	</body>
 </html>
